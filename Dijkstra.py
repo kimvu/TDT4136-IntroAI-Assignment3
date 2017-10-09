@@ -22,7 +22,7 @@ class Algorithm:
                     or x.i == self.current_node.i - 1 and x.j == self.current_node.j \
                     or x.i == self.current_node.i and x.j == self.current_node.j + 1 \
                     or x.i == self.current_node.i and x.j == self.current_node.j - 1:
-                if self.best_child_node is None or(self.best_child_node.value + self.best_child_node.g_score) > (x.value + x.g_score):  # finding the                                                                               #  best child node
+                if self.best_child_node is None or self.best_child_node.g_score > x.g_score:  # Djikstra only care about g_score
                     self.best_child_node = x
                 x.touched = True
                 if x.visited is False:  # if the node isn't visited yet the parent of the child (X) becomes current_node
@@ -62,7 +62,7 @@ class Algorithm:
 
 
 if __name__ == "__main__":
-    board = Board(open("Boards/board-1-4.txt").readlines())  # This is where i choose my board
+    board = Board(open("Boards/board-2-2.txt").readlines())  # This is where i choose my board
     alg = Algorithm(board)
     while True:
         if finished is False:
@@ -72,6 +72,6 @@ if __name__ == "__main__":
                 a = 2
                 alg.show_correct_path()
         board.getboard().update()
-        time.sleep(0.01)  # Solve speed
+        time.sleep(0.1)  # Solve speed
 
 
