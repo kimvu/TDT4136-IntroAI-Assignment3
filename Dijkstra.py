@@ -4,7 +4,7 @@ finished = False
 a = 1  # value to keep the correct path to show once
 
 
-class Algorithm:
+class AlgorithmD:
     current_node = None
     goal_node = None
     start_node = None
@@ -22,7 +22,7 @@ class Algorithm:
                     or x.i == self.current_node.i - 1 and x.j == self.current_node.j \
                     or x.i == self.current_node.i and x.j == self.current_node.j + 1 \
                     or x.i == self.current_node.i and x.j == self.current_node.j - 1:
-                if self.best_child_node is None or self.best_child_node.g_score > x.g_score:  # Djikstra only care about g_score
+                if self.best_child_node is None or self.best_child_node.g_score < x.g_score:  # Djikstra only care about g_score
                     self.best_child_node = x
                 x.touched = True
                 if x.visited is False:  # if the node isn't visited yet the parent of the child (X) becomes current_node
@@ -46,7 +46,7 @@ class Algorithm:
                 if touched_node is None:
                     touched_node = x
                     continue
-                if touched_node.value + touched_node.g_score > x.value + x.g_score:
+                if touched_node.g_score > x.g_score:  # Djikstra only care about g_score
                     touched_node = x
         if touched_node:
             self.best_child_node = touched_node
@@ -62,16 +62,19 @@ class Algorithm:
 
 
 if __name__ == "__main__":
-    board = Board(open("Boards/board-2-2.txt").readlines())  # This is where i choose my board
-    alg = Algorithm(board)
+    board1 = Board(open("Boards/board-2-3.txt").readlines())  # This is where i choose my board
+    alg = AlgorithmD(board1)
+    count = 0  # counts how many steps
     while True:
         if finished is False:
+            count = count + 1
+            print(count)
             alg.find_next()
         else:
             if a == 1:
                 a = 2
                 alg.show_correct_path()
-        board.getboard().update()
-        time.sleep(0.1)  # Solve speed
+        board1.getboard().update()
+        time.sleep(0.01)  # Solve speed
 
 

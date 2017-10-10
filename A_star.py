@@ -30,6 +30,7 @@ class Algorithm:
                 x.g_score = x.cost + self.current_node.g_score  # updating the amount it cost to move to x
                 self.current_node.children.append(x)
                 if x.value == 0:  # if we have node that has value 0 then we have finished
+                    print("TOTAL G_SCORE:"+str(x.g_score))
                     global finished
                     finished = True
                 if x.visited is False and x != self.goal_node and x != self.start_node:  # All the nodes that are
@@ -62,16 +63,19 @@ class Algorithm:
 
 
 if __name__ == "__main__":
-    board = Board(open("Boards/board-1-4.txt").readlines())  # This is where i choose my board
-    alg = Algorithm(board)
+    board1 = Board(open("Boards/board-2-1.txt").readlines())  # This is where i choose my board
+    alg = Algorithm(board1)
+    count = 0  # counts how many steps
     while True:
         if finished is False:
+            count = count + 1
+            print(count)
             alg.find_next()
         else:
             if a == 1:
                 a = 2
                 alg.show_correct_path()
-        board.getboard().update()
+        board1.getboard().update()
         time.sleep(0.01)  # Solve speed
 
 
